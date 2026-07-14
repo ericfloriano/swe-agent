@@ -123,84 +123,49 @@ Runtime:   Ollama com GPU/Vulkan ativa na AMD Radeon Vega 8 integrada
 
 Essa combinação preservou qualidade melhor que as tentativas com Planner maior e manteve a execução eficiente.
 
-## GPU, iGPU e Memória Compartilhada
+## Suporte a Hardware e Aceleração (Vulkan/iGPU)
 
-No Lenovo IdeaPad S145-15API usado nos testes, existe uma **AMD Radeon Vega 8 integrada**. Ela é uma GPU, mas não é uma placa de vídeo dedicada. Por isso, é correto dizer:
+Para maximizar a velocidade de inferência local (TPS - Tokens Por Segundo) sem depender de GPUs dedicadas de alto custo, a plataforma suporta aceleração gráfica via **Vulkan** para **GPUs Integradas (iGPU)** que compartilham a memória RAM do sistema.
 
-- a máquina tem **GPU integrada**;
-- ela não tem **GPU dedicada com VRAM própria grande**;
-- a Vega 8 usa memória compartilhada com a RAM do sistema;
-- no app, isso aparece como `memória de vídeo compartilhada (RAM)`.
+### Configuração do Ollama para iGPU/Vulkan (Linux)
 
-Quando o rodapé mostra algo como:
+Para ativar a aceleração gráfica integrada no serviço do Ollama, configure as variáveis de ambiente necessárias no serviço do systemd:
 
-```text
-LLM: GPU 6.1 GB comp. (2)
-```
+1. Abra a edição de override do serviço:
+   ```bash
+   sudo systemctl edit ollama
+   ```
+2. Adicione a configuração abaixo no bloco `[Service]`:
+   ```ini
+   [Service]
+   Environment="OLLAMA_VULKAN=1"
+   Environment="GGML_VK_VISIBLE_DEVICES=0"
+   Environment="OLLAMA_IGPU_ENABLE=1"
+   ```
+3. (Opcional) Conceda permissão de monitoramento de performance para o Ollama:
+   ```bash
+   sudo setcap cap_perfmon+ep $(which ollama)
+   ```
+4. Recarregue as configurações e reinicie o serviço:
+   ```bash
+   sudo systemctl daemon-reload
+   sudo systemctl restart ollama
+   ```
 
-isso significa:
+### Validação
 
-- `GPU`: o Ollama reportou execução usando GPU;
-- `6.1 GB comp.`: aproximadamente 6,1 GB de memória compartilhada estão associados aos modelos carregados;
-- `(2)`: existem dois modelos carregados no Ollama naquele momento.
-
-No `state.json`, a mesma informação aparece em `hardware_snapshots`, com campos como:
-
-- `cpu_percent`;
-- `ram_used_gb`;
-- `cpu_temp`;
-- `gpu.amd_detected`;
-- `gpu.amd_devices[].memory.vram_total_gb`;
-- `gpu.amd_devices[].memory.gtt_total_gb`;
-- `ollama.processor`;
-- `ollama.memory_label`;
-- `ollama.models`.
-
-## Aceleração Vulkan no Ollama
-
-O ganho de desempenho mais importante veio da ativação do caminho de GPU integrada no serviço do Ollama:
-
-```ini
-[Service]
-Environment="OLLAMA_VULKAN=1"
-Environment="GGML_VK_VISIBLE_DEVICES=0"
-Environment="OLLAMA_IGPU_ENABLE=1"
-```
-
-Depois:
-
+Durante uma inferência ativa, execute:
 ```bash
-sudo systemctl daemon-reload
-sudo systemctl restart ollama
 ollama ps
 ```
+Verifique se a coluna `PROCESSOR` indica o uso de aceleração por GPU (ex: `100% GPU`). *Nota: Em setups de iGPU compartilhada (como AMD Radeon Vega), o Ollama consome a RAM do sistema de forma compartilhada.*
 
-Também foi usado:
+### Monitoramento de Recursos e Segurança Térmica
 
-```bash
-sudo setcap cap_perfmon+ep /usr/local/bin/ollama
-```
-
-Validação esperada:
-
-```text
-PROCESSOR
-100% GPU
-```
-
-Esse ajuste pertence ao ambiente do Ollama, não ao código do app. O SWE Local Agent apenas lê e registra o que o Ollama está usando.
-
-### Segurança Térmica e de Hardware
-
-A solução não faz overclock, não altera voltagem, não instala driver automaticamente e não força clocks da GPU. Ela apenas permite que o Ollama use o backend gráfico disponível e registra métricas passivas.
-
-Mesmo assim, em notebook é prudente:
-
-- acompanhar temperatura;
-- evitar obstruir ventilação;
-- descarregar modelos que não serão usados;
-- comparar estabilidade antes e depois de qualquer ajuste de driver;
-- manter rollback simples do override do systemd.
+Como execuções locais de agentes podem exigir processamento contínuo:
+- Acompanhe a temperatura do processador (exibida diretamente no dashboard da GUI).
+- Certifique-se de manter o notebook/desktop em local bem ventilado.
+- Libere a memória do sistema descarregando modelos não utilizados.
 
 ## Gerenciamento de Memória e Recursos
 
