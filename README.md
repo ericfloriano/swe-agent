@@ -201,7 +201,8 @@ Os testes abaixo usam workspaces reais em `workspaces/app_task_*`, com estado pe
 | `app_task_5` | Planner Llama 3.2 3B | `llama3.2-3b-planner` | `qwen2.5-coder-7b-local` | 231,29s | 6,65 | 3,53 | Mais lento e ainda com desvio |
 | `app_task_6` | Prompt benchmark reforçado | `qwen2.5-coder-1.5b-qa` | `qwen2.5-coder-7b-local` | 247,01s | 13,85 | 3,42 | Aviso de modularidade |
 | `app_task_7` | Benchmark repetido | `qwen2.5-coder-1.5b-qa` | `qwen2.5-coder-7b-local` | 251,61s | 13,88 | 3,26 | Aviso por excesso de arquivos |
-| `app_task_8` | Sweet spot atual | `qwen2.5-coder-1.5b-qa` | `qwen2.5-coder-7b-local` | 180,59s | 13,93 | 3,53 | `quality_checks: passed` |
+| `app_task_8` | Sweet spot de escopo | `qwen2.5-coder-1.5b-qa` | `qwen2.5-coder-7b-local` | 180,59s | 13,93 | 3,53 | `quality_checks: passed` |
+| `app_task_11` | Otimização de GUI e Latência (Vídeo Demo) | `qwen2.5-coder-1.5b-qa` | `qwen2.5-coder-7b-local` | 277,97s | 12,00 | 2,85 | `quality_checks: passed` |
 
 Leitura importante: o teste mais rápido não foi automaticamente o melhor. `app_task_4` foi veloz, mas desviou o domínio para Pomodoro. O sweet spot atual veio quando performance e prompt/escopo ficaram equilibrados.
 
@@ -364,16 +365,15 @@ Melhorias naturais para os próximos ciclos:
 
 ## Fluxo de Teste Recomendado
 
-Para testar o ambiente:
+Para validar a instalação e medir o desempenho do seu ambiente local:
 
-1. Suba o Ollama com os modelos já registrados.
-2. Confirme o carregamento com `ollama ps` após o pré-aquecimento.
-3. Defina o Planner como `qwen2.5-coder-1.5b-qa:latest`.
-4. Defina o Developer como `qwen2.5-coder-7b-local:latest`.
-5. Execute o prompt de benchmark de controle de atividades diárias.
-6. Compare o novo `state.json` com `app_task_2`, `app_task_3` e `app_task_8`.
+1. Inicialize o serviço do Ollama com os modelos de sua preferência.
+2. Na interface gráfica do SWE Local Agent, selecione os modelos correspondentes para os papéis de **Planner** e **Developer**.
+3. Execute uma tarefa de teste utilizando o prompt de controle de atividades contido no guia de benchmark acima.
+4. Valide a entrega acompanhando os arquivos criados no diretório do workspace (`workspaces/<project_id>`).
+5. Analise as métricas de tempo total, TPS (tokens por segundo) e consumo de hardware no arquivo `.swe_local_agent/state.json` gerado para o projeto.
 
-O principal diferencial do projeto é a capacidade de quantificar a eficiência de cada etapa e modelo, viabilizando otimizações baseadas em dados empíricos de performance.
+A capacidade de quantificar a eficiência de cada etapa e modelo de forma empírica permite otimizar o fluxo e calibrar prompts para obter a melhor performance no hardware disponível.
 
 ## Licença
 
