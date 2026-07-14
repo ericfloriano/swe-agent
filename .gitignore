@@ -1,0 +1,51 @@
+__pycache__/
+*.py[cod]
+*$py.class
+
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+venv/
+.venv/
+env/
+.env
+.env.*
+.streamlit/secrets.toml
+
+*.log
+*.tmp
+
+.DS_Store
+Thumbs.db
+
+# Local model artifacts and heavyweight ML files.
+# Models should be registered in Ollama, not committed here.
+models/
+ollama_models/
+*.gguf
+*.safetensors
+*.onnx
+*.pt
+*.pth
+
+# Workspaces: Ignore all temporary workspaces by default
+workspaces/*
+# Allow specific benchmark workspaces to be committed as evidence
+!workspaces/app_task/
+!workspaces/app_task_2/
+!workspaces/app_task_3/
+!workspaces/app_task_8/
+
+# Ignore internal git and temporary files inside the allowed workspaces
+workspaces/*/.git/
+workspaces/*/.swe_local_agent/last_developer_output.txt
+workspaces/*/.swe_local_agent/*.tmp
+
+# Local documentation files to be kept out of GitHub
+COMO_SUBIR_PARA_TESTES.md
+install_guide.md
+summary_handoff.md
+

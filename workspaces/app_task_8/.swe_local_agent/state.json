@@ -1,0 +1,331 @@
+{
+  "project_id": "app_task_8",
+  "prompt": "Desenvolva um app simples para controle de atividades diárias em Python.\n\nRequisitos obrigatórios:\n- Permitir cadastrar uma atividade com título e descrição opcional.\n- Permitir listar todas as atividades.\n- Permitir marcar uma atividade como concluída.\n- Permitir remover uma atividade.\n- Manter os dados em memória durante a execução.\n- Usar interface de terminal simples com menu numérico.\n- Ser minimamente modular, sem exagerar na quantidade de arquivos.\n\nCritérios de aceite:\n- O usuário consegue cadastrar, listar, concluir e remover atividades pelo terminal.\n- Atividades concluídas aparecem diferenciadas na listagem.\n- O app não deve implementar Pomodoro, cronômetro, timer ou agenda.\n- O código deve rodar com Python puro, sem dependências externas.",
+  "plan_version": "1.0",
+  "plan_content": "# Plano de Implementação\n\n## Escopo entendido\nO app será uma ferramenta simples para controle de atividades diárias em Python. Ele permitirá cadastrar, listar, concluir e remover atividades pelo terminal.\n\n## Funcionalidades mínimas obrigatórias\n1. **Cadastro de Atividade**: O usuário deve ser capaz de cadastrar uma nova atividade com um título e uma descrição opcional.\n2. **Listagem de Atividades**: O usuário deve ser capaz de listar todas as atividades cadastradas.\n3. **Conclusão de Atividade**: O usuário deve ser capaz de marcar uma atividade como concluída.\n4. **Remoção de Atividade**: O usuário deve ser capaz de remover uma atividade.\n\n## Fora de escopo\n- Implementação de Pomodoro, cronômetro, timer ou agenda.\n- Modularização excessiva, camadas, controllers, interfaces ou modelos separados para apps simples de terminal.\n- Invenção aleatória, simulações, timers, Pomodoro ou abstrações que o usuário não pediu.\n\n## Arquitetura e dependências\n1. **Arquivos**: \n   - `main.py`: O arquivo principal onde o código principal do app será escrito.\n   - `activity.py`: Um módulo para representar uma atividade com título, descrição e status (concluída ou não).\n2. **Modulos**:\n   - `utils.py`: Módulo para funções úteis como validação de entrada.\n\n## Lista de arquivos com caminhos relativos\n- `main.py`\n- `activity.py`\n- `utils.py`\n\n## Critérios de aceite\n1. O usuário consegue cadastrar, listar, concluir e remover atividades",
+  "user_feedback": null,
+  "plan_approved": true,
+  "current_step": "completed",
+  "errors": [],
+  "files_created": [
+    "main.py",
+    "activity.py",
+    "utils.py"
+  ],
+  "self_healing_attempts": 0,
+  "log_messages": [
+    "Workspace criado e inicializado.",
+    "Hardware (planner_start): CPU 45.0% | RAM 9.09/17.44 GB | Temp 54.8C | LLM GPU (6.06 GB; memoria de video compartilhada (RAM)) | GPU mem: VRAM 1.94/2.00 GB, GTT 4.71/8.72 GB",
+    "Planner Agent: Plano de implementação v1.0 gerado. (Tempo: 28.19s | Tokens resposta: 384 | Tokens prompt: 931 | Média: 13.9 TPS)",
+    "Timer de execução pausado no plano: 28.43s.",
+    "Hardware (planner_end): CPU 35.0% | RAM 9.00/17.44 GB | Temp 65.6C | LLM GPU (6.06 GB; memoria de video compartilhada (RAM)) | GPU mem: VRAM 1.92/2.00 GB, GTT 4.70/8.72 GB",
+    "Workflow: Totais (Tempo: 28.19s | Tokens resposta: 384 | Tokens prompt: 931 | Média: 13.9 TPS)",
+    "Plano aprovado. Iniciando Developer Agent.",
+    "Hardware (developer_start): CPU 55.8% | RAM 9.10/17.44 GB | Temp 62.5C | LLM GPU (6.06 GB; memoria de video compartilhada (RAM)) | GPU mem: VRAM 1.94/2.00 GB, GTT 4.71/8.72 GB",
+    "Developer Agent: Escreveu 3 arquivo(s) e concluiu a codificação. (Tempo: 151.90s | Tokens resposta: 480 | Tokens prompt: 1156 | Média: 3.5 TPS)",
+    "Timer de execução finalizado: 180.59s.",
+    "Hardware (developer_end): CPU 34.6% | RAM 9.19/17.44 GB | Temp 63.9C | LLM GPU (6.06 GB; memoria de video compartilhada (RAM)) | GPU mem: VRAM 1.93/2.00 GB, GTT 4.71/8.72 GB",
+    "Workflow: Totais (Tempo: 180.09s | Tokens resposta: 864 | Tokens prompt: 2087 | Média: 5.3 TPS)"
+  ],
+  "model_planner": "qwen2.5-coder-1.5b-qa:latest",
+  "model_developer": "qwen2.5-coder-7b-local:latest",
+  "execution_mode": "standard",
+  "execution_timer": {
+    "status": "completed",
+    "current_phase": null,
+    "phase_seconds": {
+      "planner": 28.426846742630005,
+      "developer": 152.16615533828735
+    },
+    "accumulated_seconds": 180.59300208091736,
+    "segment_started_at": null
+  },
+  "metrics": [
+    {
+      "agent": "Planner Agent",
+      "eval_count": 384,
+      "prompt_eval_count": 931,
+      "eval_duration_seconds": 27.573964,
+      "prompt_eval_duration_seconds": 0.125002,
+      "duration_seconds": 28.19121994,
+      "load_duration_seconds": 0.451476079,
+      "tokens_sec": 13.926180508540593
+    },
+    {
+      "agent": "Developer Agent",
+      "eval_count": 480,
+      "prompt_eval_count": 1156,
+      "eval_duration_seconds": 135.857241,
+      "prompt_eval_duration_seconds": 15.4433,
+      "duration_seconds": 151.897607666,
+      "load_duration_seconds": 0.446061126,
+      "tokens_sec": 3.533120476073852
+    }
+  ],
+  "runtime": {
+    "active": false,
+    "agent": "Developer Agent",
+    "status": "Execução concluída.",
+    "response_preview": "```\n---\n*Tempo: 151.90s | Tokens resposta: 480 | Tokens prompt: 1156 | Média: 3.5 TPS*",
+    "thinking_preview": "",
+    "response_chars": 2263
+  },
+  "hardware_snapshots": [
+    {
+      "timestamp": 1783976169.3304527,
+      "label": "planner_start",
+      "cpu_percent": 45.0,
+      "ram_total_gb": 17.44,
+      "ram_used_gb": 9.09,
+      "ram_percent": 52.1,
+      "cpu_temp": 54.8,
+      "gpu": {
+        "amd_detected": true,
+        "amd_devices": [
+          {
+            "card": "card1",
+            "driver": "amdgpu",
+            "pci_id": "1002:15D8",
+            "device_id": "0x15d8",
+            "temperature_c": 54.0,
+            "memory": {
+              "vram_total_gb": 2.0,
+              "vram_used_gb": 1.94,
+              "gtt_total_gb": 8.72,
+              "gtt_used_gb": 4.71
+            },
+            "shared_memory_likely": true
+          }
+        ]
+      },
+      "ollama": {
+        "status": "loaded",
+        "processor": "GPU",
+        "loaded_models": 2,
+        "size_gb": 6.06,
+        "vram_gb": 6.06,
+        "ram_gb": 0.0,
+        "memory_target": "shared_gpu_ram",
+        "memory_label": "memoria de video compartilhada (RAM)",
+        "models": [
+          {
+            "name": "qwen2.5-coder-7b-local:latest",
+            "size_gb": 4.42,
+            "vram_gb": 4.42,
+            "context_length": 4096
+          },
+          {
+            "name": "qwen2.5-coder-1.5b-qa:latest",
+            "size_gb": 1.64,
+            "vram_gb": 1.64,
+            "context_length": 2048
+          }
+        ]
+      }
+    },
+    {
+      "timestamp": 1783976197.7617335,
+      "label": "planner_end",
+      "cpu_percent": 35.0,
+      "ram_total_gb": 17.44,
+      "ram_used_gb": 9.0,
+      "ram_percent": 51.6,
+      "cpu_temp": 65.6,
+      "gpu": {
+        "amd_detected": true,
+        "amd_devices": [
+          {
+            "card": "card1",
+            "driver": "amdgpu",
+            "pci_id": "1002:15D8",
+            "device_id": "0x15d8",
+            "temperature_c": 65.0,
+            "memory": {
+              "vram_total_gb": 2.0,
+              "vram_used_gb": 1.92,
+              "gtt_total_gb": 8.72,
+              "gtt_used_gb": 4.7
+            },
+            "shared_memory_likely": true
+          }
+        ]
+      },
+      "ollama": {
+        "status": "loaded",
+        "processor": "GPU",
+        "loaded_models": 2,
+        "size_gb": 6.06,
+        "vram_gb": 6.06,
+        "ram_gb": 0.0,
+        "memory_target": "shared_gpu_ram",
+        "memory_label": "memoria de video compartilhada (RAM)",
+        "models": [
+          {
+            "name": "qwen2.5-coder-1.5b-qa:latest",
+            "size_gb": 1.64,
+            "vram_gb": 1.64,
+            "context_length": 2048
+          },
+          {
+            "name": "qwen2.5-coder-7b-local:latest",
+            "size_gb": 4.42,
+            "vram_gb": 4.42,
+            "context_length": 4096
+          }
+        ]
+      }
+    },
+    {
+      "timestamp": 1783976202.9148746,
+      "label": "developer_start",
+      "cpu_percent": 55.8,
+      "ram_total_gb": 17.44,
+      "ram_used_gb": 9.1,
+      "ram_percent": 52.2,
+      "cpu_temp": 62.5,
+      "gpu": {
+        "amd_detected": true,
+        "amd_devices": [
+          {
+            "card": "card1",
+            "driver": "amdgpu",
+            "pci_id": "1002:15D8",
+            "device_id": "0x15d8",
+            "temperature_c": 62.0,
+            "memory": {
+              "vram_total_gb": 2.0,
+              "vram_used_gb": 1.94,
+              "gtt_total_gb": 8.72,
+              "gtt_used_gb": 4.71
+            },
+            "shared_memory_likely": true
+          }
+        ]
+      },
+      "ollama": {
+        "status": "loaded",
+        "processor": "GPU",
+        "loaded_models": 2,
+        "size_gb": 6.06,
+        "vram_gb": 6.06,
+        "ram_gb": 0.0,
+        "memory_target": "shared_gpu_ram",
+        "memory_label": "memoria de video compartilhada (RAM)",
+        "models": [
+          {
+            "name": "qwen2.5-coder-1.5b-qa:latest",
+            "size_gb": 1.64,
+            "vram_gb": 1.64,
+            "context_length": 2048
+          },
+          {
+            "name": "qwen2.5-coder-7b-local:latest",
+            "size_gb": 4.42,
+            "vram_gb": 4.42,
+            "context_length": 4096
+          }
+        ]
+      }
+    },
+    {
+      "timestamp": 1783976355.1024795,
+      "label": "developer_end",
+      "cpu_percent": 34.6,
+      "ram_total_gb": 17.44,
+      "ram_used_gb": 9.19,
+      "ram_percent": 52.7,
+      "cpu_temp": 63.9,
+      "gpu": {
+        "amd_detected": true,
+        "amd_devices": [
+          {
+            "card": "card1",
+            "driver": "amdgpu",
+            "pci_id": "1002:15D8",
+            "device_id": "0x15d8",
+            "temperature_c": 63.0,
+            "memory": {
+              "vram_total_gb": 2.0,
+              "vram_used_gb": 1.93,
+              "gtt_total_gb": 8.72,
+              "gtt_used_gb": 4.71
+            },
+            "shared_memory_likely": true
+          }
+        ]
+      },
+      "ollama": {
+        "status": "loaded",
+        "processor": "GPU",
+        "loaded_models": 2,
+        "size_gb": 6.06,
+        "vram_gb": 6.06,
+        "ram_gb": 0.0,
+        "memory_target": "shared_gpu_ram",
+        "memory_label": "memoria de video compartilhada (RAM)",
+        "models": [
+          {
+            "name": "qwen2.5-coder-7b-local:latest",
+            "size_gb": 4.42,
+            "vram_gb": 4.42,
+            "context_length": 4096
+          },
+          {
+            "name": "qwen2.5-coder-1.5b-qa:latest",
+            "size_gb": 1.64,
+            "vram_gb": 1.64,
+            "context_length": 2048
+          }
+        ]
+      }
+    }
+  ],
+  "quality_checks": {
+    "stage": "developer",
+    "status": "passed",
+    "blocking": false,
+    "blocking_issues": [],
+    "warnings": [],
+    "has_scope_summary": true,
+    "has_minimum_features": true,
+    "has_acceptance_criteria": true,
+    "has_out_of_scope": true,
+    "scope_keywords": [
+      "atividades",
+      "diarias",
+      "requisitos",
+      "obrigatorios",
+      "permitir",
+      "cadastrar",
+      "atividade",
+      "titulo"
+    ],
+    "scope_keywords_found": [
+      "atividades",
+      "diarias",
+      "permitir",
+      "cadastrar",
+      "atividade",
+      "titulo"
+    ],
+    "missing_scope_keywords": [
+      "requisitos",
+      "obrigatorios"
+    ],
+    "suspicious_domain_shift": false,
+    "domain_shift_terms": [],
+    "planner_code_removed_blocks": 0,
+    "planned_files": [
+      "main.py",
+      "activity.py",
+      "utils.py"
+    ],
+    "files_created": [
+      "main.py",
+      "activity.py",
+      "utils.py"
+    ],
+    "files_match_plan": true,
+    "missing_planned_files": []
+  }
+}
