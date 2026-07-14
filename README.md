@@ -8,7 +8,7 @@
 
 **SWE Local Agent** é uma plataforma local de desenvolvimento assistido por agentes de software. Ela roda offline, usa modelos locais via Ollama, cria planos de implementação, aguarda aprovação humana e depois gera arquivos reais em workspaces isolados com rastreabilidade por estado JSON, logs, métricas e Git local.
 
-O projeto foi desenhado para implementar e validar, em hardware comum, um fluxo de engenharia parecido com ferramentas modernas de coding agents: planejamento, revisão, execução, auditoria e comparação objetiva de desempenho. A diferença central é que tudo acontece na máquina local, sem depender de API externa para inferência.
+O projeto foi desenvolvido para implementar e validar, sob restrições comuns de hardware local, um fluxo de engenharia inspirado nas ferramentas modernas de agentes autônomos de codificação (coding agents): planejamento, revisão, execução, auditoria e medição objetiva de performance. O diferencial central é a execução inteiramente offline e livre de dependências de APIs de inferência proprietárias.
 
 ## Diferenciais da Plataforma
 
@@ -44,15 +44,15 @@ Veja abaixo a demonstração em vídeo do fluxo completo em ação:
 
 ## Motivação e Objetivos
 
-Rodar agentes de desenvolvimento localmente é difícil por três motivos: modelos consomem memória, inferência pode ser lenta e modelos locais pequenos tendem a encurtar ou desviar tarefas quando o prompt não é bem controlado.
+A execução de agentes de desenvolvimento em ambientes estritamente locais apresenta desafios significativos: o elevado consumo de memória pelos modelos, a latência de inferência no hardware de consumo e a tendência de modelos de menor escala de desviar do domínio do escopo caso as diretivas não sejam rigorosamente controladas.
 
-Este projeto ataca esses três pontos:
+Esta plataforma aborda esses desafios por meio de três pilares:
 
-1. **Performance**: usa Ollama com `keep_alive`, `use_mmap` e, quando disponível, GPU/Vulkan.
-2. **Qualidade**: separa planejamento e desenvolvimento, com prompt mais explícito e aprovação humana.
-3. **Evidência**: cada teste deixa rastros comparáveis em `state.json`, incluindo tempo, TPS, arquivos e hardware usado.
+1. **Otimização de Performance**: Utilização do Ollama configurado com políticas de `keep_alive`, `use_mmap` e, quando disponível, aceleração por GPU/Vulkan.
+2. **Controle de Qualidade de Escopo**: Separação clara entre planejamento e escrita de código, reforçada por diretivas explícitas de escopo e etapa de aprovação humana.
+3. **Auditoria Baseada em Evidências**: Rastreabilidade completa de cada execução persistida em `state.json` (incluindo tempo de resposta, taxa de geração de tokens e telemetria de hardware).
 
-O resultado é uma solução de engenharia agêntica com medições reais.
+O resultado é um ecossistema de desenvolvimento agêntico passível de calibração empírica.
 
 ## Proposta e Evolução Técnica
 
@@ -178,19 +178,18 @@ Para ver modelos carregados:
 ollama ps
 ```
 
-Para descarregar um modelo específico:
+Para descarregar um modelo ativo da memória do Ollama:
 
+```bash
+ollama stop <nome_do_modelo>
+```
+
+Por exemplo:
 ```bash
 ollama stop qwen2.5-coder-7b-local:latest
 ```
 
-Para descarregar outro modelo:
-
-```bash
-ollama stop qwen2.5-coder-1.5b-qa:latest
-```
-
-Se `keep_alive` estiver alto, o modelo pode permanecer pronto por mais tempo. Isso é bom para velocidade, mas consome RAM/memória compartilhada enquanto estiver carregado.
+Se `keep_alive` estiver configurado com um valor alto, o modelo poderá permanecer pronto para inferência na memória. Isso otimiza o tempo de resposta subsequente, mas mantém a alocação de memória RAM/compartilhada.
 
 ## Benchmarks Recentes
 
@@ -200,14 +199,14 @@ Os testes abaixo usam workspaces reais em `workspaces/app_task_*`, com estado pe
 | --- | --- | --- | --- | ---: | ---: | ---: | --- |
 | `app_task_2` | Antes da GPU, CPU | `qwen2.5-coder-1.5b-qa` | `qwen2.5-coder-7b-local` | 771,39s | 5,98 | 1,73 | Funcional, mas lento |
 | `app_task_3` | Após GPU/Vulkan | `qwen2.5-coder-1.5b-qa` | `qwen2.5-coder-7b-local` | 354,70s | 14,05 | 3,34 | Grande ganho de performance |
-| `app_task_4` | GPU, prompt ainda frouxo | `qwen2.5-coder-1.5b-qa` | `qwen2.5-coder-7b-local` | 117,14s | 14,07 | 3,67 | Rápido, mas desviou para Pomodoro |
+| `app_task_4` | GPU, prompt inicial sem restrições | `qwen2.5-coder-1.5b-qa` | `qwen2.5-coder-7b-local` | 117,14s | 14,07 | 3,67 | Rápido, mas desviou para Pomodoro |
 | `app_task_5` | Planner Llama 3.2 3B | `llama3.2-3b-planner` | `qwen2.5-coder-7b-local` | 231,29s | 6,65 | 3,53 | Mais lento e ainda com desvio |
 | `app_task_6` | Prompt benchmark reforçado | `qwen2.5-coder-1.5b-qa` | `qwen2.5-coder-7b-local` | 247,01s | 13,85 | 3,42 | Aviso de modularidade |
 | `app_task_7` | Benchmark repetido | `qwen2.5-coder-1.5b-qa` | `qwen2.5-coder-7b-local` | 251,61s | 13,88 | 3,26 | Aviso por excesso de arquivos |
 | `app_task_8` | Sweet spot de escopo | `qwen2.5-coder-1.5b-qa` | `qwen2.5-coder-7b-local` | 180,59s | 13,93 | 3,53 | `quality_checks: passed` |
 | `app_task_11` | Otimização de GUI e Latência (Vídeo Demo) | `qwen2.5-coder-1.5b-qa` | `qwen2.5-coder-7b-local` | 277,97s | 12,00 | 2,85 | `quality_checks: passed` |
 
-Leitura importante: o teste mais rápido não foi automaticamente o melhor. `app_task_4` foi veloz, mas desviou o domínio para Pomodoro. O sweet spot atual veio quando performance e prompt/escopo ficaram equilibrados.
+Leitura importante: o teste mais veloz não é necessariamente o melhor em qualidade. O teste `app_task_4` obteve tempo reduzido, mas desviou o domínio da aplicação. O ponto ideal (sweet spot) foi atingido quando a performance e o rigor do escopo do prompt foram equilibrados.
 
 ## Prompt de Benchmark Recomendado
 
@@ -232,7 +231,7 @@ Critérios de aceite:
 - O código deve rodar com Python puro, sem dependências externas.
 ```
 
-Esse prompt deixa claro o domínio, as funções mínimas e o que está fora de escopo.
+Este prompt delimita de forma precisa o domínio da aplicação, as funcionalidades essenciais esperadas e as restrições explícitas de escopo.
 
 ## Estrutura do `state.json`
 
@@ -353,17 +352,16 @@ O projeto trata o filesystem como superfície crítica:
 
 ## Princípios de Projeto e Engenharia
 
-O objetivo não é ter muitos agentes. O objetivo é ter o número certo de agentes para o hardware disponível.
+A filosofia arquitetural deste projeto prioriza a eficiência e o controle em detrimento de orquestrações complexas de múltiplos agentes. O objetivo central é empregar a menor quantidade possível de agentes necessários para atingir o objetivo sob as restrições do hardware local.
 
-Por isso o MVP usa:
+Dessa forma, o design do sistema foi estruturado com:
+- **Planner Agent**: Especializado na definição clara e estruturação do plano de entrega.
+- **Aprovação Humana**: Mecanismo de controle de qualidade e validação de escopo.
+- **Developer Agent**: Focado unicamente na escrita precisa de arquivos conforme o plano aprovado.
+- **Observabilidade**: Coleta passiva de métricas de hardware e inferência.
+- **Evidências de Qualidade**: Avaliação assíncrona pós-execução baseada em regras sem introduzir latência no pipeline principal.
 
-- um Planner para estruturar;
-- uma aprovação humana para controlar escopo;
-- um Developer para escrever arquivos;
-- observabilidade para medir;
-- evidência silenciosa de qualidade para analisar depois.
-
-Essa combinação evita transformar a solução em uma esteira lenta e frágil. Em máquina local, arquitetura enxuta é uma decisão de engenharia, não limitação.
+Esta abordagem enxuta evita o overhead de latência e a fragilidade de orquestrações complexas de agentes em loop. Em ambientes de execução local, a simplicidade arquitetural é uma decisão de engenharia deliberada para otimização de performance.
 
 ## Roadmap
 
