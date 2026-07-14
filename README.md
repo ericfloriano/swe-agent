@@ -123,25 +123,6 @@ Runtime:   Ollama com GPU/Vulkan ativa na AMD Radeon Vega 8 integrada
 
 Essa combinação preservou qualidade melhor que as tentativas com Planner maior e manteve a execução eficiente.
 
-### Usando Outros Modelos
-
-A solução permite testar outros modelos desde que:
-
-- estejam registrados no Ollama;
-- apareçam em `ollama list` ou na API `/api/tags`;
-- tenham memória suficiente para carregar no seu hardware;
-- retornem texto em formato compatível com o fluxo;
-- para Developer, consigam seguir o contrato `[FILE: caminho]`.
-
-Exemplos de modelos que podem ser avaliados no futuro:
-
-- modelos coder menores para Developer rápido;
-- modelos instruct pequenos para Planner;
-- modelos quantizados Q4/Q5 para caber melhor em RAM;
-- combinações especializadas, como Planner generalista e Developer coder.
-
-O projeto foi feito para comparar essas combinações com evidência, não por sensação.
-
 ## GPU, iGPU e Memória Compartilhada
 
 No Lenovo IdeaPad S145-15API usado nos testes, existe uma **AMD Radeon Vega 8 integrada**. Ela é uma GPU, mas não é uma placa de vídeo dedicada. Por isso, é correto dizer:
