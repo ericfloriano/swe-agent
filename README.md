@@ -25,7 +25,7 @@ O projeto foi desenhado para implementar e validar, em hardware comum, um fluxo 
 
 ## Demonstração
 
-<video src="https://github.com/user-attachments/assets/24e0ad74-cfc5-4051-8ecc-f92ab82a81ec" controls width="100%"></video>
+<video src="https://github.com/user-attachments/assets/e1a240bc-a71c-43a2-9f07-aa4e147836ec" controls width="100%"></video>
 
 ## Motivação e Objetivos
 
