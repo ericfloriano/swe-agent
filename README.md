@@ -98,6 +98,29 @@ flowchart TD
 | `app_cli/main.py` | Interface CLI por terminal usando o mesmo backend lógico |
 | `workspaces/` | Projetos gerados e evidências de execução |
 
+### Orquestração de Agentes (LangGraph)
+
+A coordenação do ciclo de vida dos agentes, a persistência de estados entre as etapas e as transições de fluxo são implementadas utilizando o **LangGraph** (por meio do `StateGraph`). 
+
+O fluxo é modelado como um grafo direcionado de estados com suporte nativo a interrupções estruturadas para tomada de decisão do usuário (*Human-in-the-Loop*):
+
+1. **planner (nó de entrada)**: Executa o Planner Agent, responsável pela análise inicial do problema e geração do plano de ação (`implementation_plan.md`).
+2. **route_planner (aresta condicional)**: 
+   - Se o plano for **aprovado** pelo usuário, o fluxo transita para o nó `developer`.
+   - Se o plano for **rejeitado** ou demandar correções, a execução é finalizada (`END`), aguardando novas interações ou ajustes na GUI/CLI.
+3. **developer (nó final)**: Executa o Developer Agent, encarregado da geração e gravação física dos arquivos no workspace isolado, seguindo as diretrizes do plano aprovado.
+
+```mermaid
+stateDiagram-v2
+    [*] --> planner: Início da tarefa
+    planner --> route_planner: Plano gerado
+    route_planner --> developer: Aprovado
+    route_planner --> [*]: Rejeitado / Demanda Ajustes
+    developer --> [*]: Arquivos escritos (Fim)
+```
+
+Essa arquitetura orientada a grafos assegura a consistência das transições de estado, simplifica a auditoria por meio do `state.json` e isola os contextos de inferência dos LLMs em cada etapa.
+
 ## Modelos Offline
 
 O SWE Local Agent não é preso a um único modelo. Ele conversa com o Ollama, consulta os modelos disponíveis e deixa o usuário selecionar combinações para cada papel.
