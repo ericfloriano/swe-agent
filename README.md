@@ -103,15 +103,13 @@ Isso significa que novos modelos podem ser testados sem reescrever a aplicação
 
 ### Modelos Já Testados e Validados
 
-| Modelo no Ollama | Papel testado | Observação técnica |
-| --- | --- | --- |
-| `qwen2.5-coder-1.5b-qa:latest` | Planner | Melhor combinação recente para planejamento rápido nos testes `app_task_6`, `app_task_7` e `app_task_8`. Entregou cerca de 13,9 TPS como Planner. |
-| `qwen2.5-coder-7b-local:latest` | Developer | Principal modelo de desenvolvimento. Antes era lento em CPU, mas ficou muito mais viável após ativação da GPU via Vulkan. |
-| `qwen2.5-coder-7b-local` | Developer | Nome base usado nos comandos e exemplos de registro local. |
-| `qwen2.5-coder-3b-developer:latest` | Developer | Alternativa leve, útil quando a prioridade é velocidade e menor consumo. |
-| `qwen2.5-coder-3b-local` | Planner ou Developer | Alternativa registrada/documentada para tarefas menores. |
-| `llama3.2-3b-planner:latest` | Planner | Testado no `app_task_5`. Funcionou, mas foi mais lento no benchmark e não resolveu sozinho o desvio de escopo. |
-| `llama3.2-3b-local` | Planner | Modelo geral documentado para planejamento leve e uso inicial. |
+| Modelo Base | Nomes Registrados (Ollama) | Papel Recomendado | Observação Técnica |
+| --- | --- | --- | --- |
+| **Qwen 2.5 Coder 7B** | `qwen2.5-coder-7b-local` / `:latest` | Developer | Principal modelo de desenvolvimento. Altamente preciso. Tornou-se extremamente viável com a aceleração por GPU/Vulkan ativada. |
+| **Qwen 2.5 Coder 3B** | `qwen2.5-coder-3b-developer` / `-local` | Developer / Planner | Excelente equilíbrio entre velocidade e consumo. Útil para tarefas menores ou hardware com menos memória disponível. |
+| **Llama 3.2 3B** | `llama3.2-3b-planner` / `-local` | Planner | Testado para planejamento leve. Funciona bem, mas se mostrou mais lento em benchmarks comparativos. |
+| **Qwen 2.5 Coder 1.5B** | `qwen2.5-coder-1.5b-qa:latest` | Planner | Excelente para estruturação rápida e geração de planos, alcançando cerca de 13,9 TPS na execução local. |
+
 
 ### Combinação Recomendada Hoje
 
