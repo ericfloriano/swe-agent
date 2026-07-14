@@ -74,7 +74,13 @@ O SWE Local Agent opera seguindo etapas estruturadas para garantir previsibilida
 
 Veja abaixo a demonstração em vídeo do fluxo completo em ação:
 
-<video src="https://github.com/user-attachments/assets/e1a240bc-a71c-43a2-9f07-aa4e147836ec" controls width="100%"></video>
+<video width="100%" controls playsinline preload="metadata">
+  <source src="https://github.com/user-attachments/assets/e1a240bc-a71c-43a2-9f07-aa4e147836ec" type="video/mp4">
+  Seu navegador não suporta a exibição de vídeos.
+</video>
+
+*Caso o vídeo não carregue ou você esteja utilizando o aplicativo móvel do GitHub, você pode [assistir à demonstração diretamente neste link](https://github.com/user-attachments/assets/e1a240bc-a71c-43a2-9f07-aa4e147836ec).*
+
 
 ## Motivação e Objetivos
 
