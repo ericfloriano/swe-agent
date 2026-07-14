@@ -74,12 +74,12 @@ O SWE Local Agent opera seguindo etapas estruturadas para garantir previsibilida
 
 Veja abaixo a demonstração em vídeo do fluxo completo em ação:
 
-<video width="100%" controls playsinline preload="metadata">
-  <source src="https://github.com/user-attachments/assets/e1a240bc-a71c-43a2-9f07-aa4e147836ec" type="video/mp4">
-  Seu navegador não suporta a exibição de vídeos.
-</video>
+<video src="https://github.com/user-attachments/assets/e1a240bc-a71c-43a2-9f07-aa4e147836ec" controls playsinline width="100%"></video>
 
-*Caso o vídeo não carregue ou você esteja utilizando o aplicativo móvel do GitHub, você pode [assistir à demonstração diretamente neste link](https://github.com/user-attachments/assets/e1a240bc-a71c-43a2-9f07-aa4e147836ec).*
+*Caso o vídeo não carregue diretamente no seu dispositivo, você pode [assistir à demonstração neste link](https://github.com/user-attachments/assets/e1a240bc-a71c-43a2-9f07-aa4e147836ec).*
+
+> [!TIP]
+> **Nota para dispositivos móveis:** O GitHub restringe o acesso a links do tipo `user-attachments/assets/` em navegadores mobile que não estejam autenticados (logados). Se encontrar um erro **404** ao abrir o link em seu smartphone, certifique-se de estar logado na sua conta do GitHub no navegador mobile ou abra o link em uma aba onde sua sessão do GitHub esteja ativa.
 
 
 ## Motivação e Objetivos
