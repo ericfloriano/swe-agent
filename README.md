@@ -23,7 +23,22 @@ O projeto foi desenhado para implementar e validar, em hardware comum, um fluxo 
 - **Segurança de escrita**: sandbox de caminhos impede escrita fora do workspace do projeto.
 - **Portabilidade**: backend FastAPI, frontend Streamlit e CLI Python.
 
-## Demonstração
+## Demonstração e Fluxo de Execução
+
+O SWE Local Agent opera seguindo etapas estruturadas para garantir previsibilidade e controle:
+
+1. **Workspace**: O usuário cria ou seleciona um diretório de trabalho isolado.
+2. **Definição de Modelos**: Seleção dos modelos do Planner e do Developer disponíveis no Ollama.
+3. **Solicitação**: Envio do pedido de desenvolvimento.
+4. **Planejamento**: O Planner cria o `implementation_plan.md`.
+5. **Aprovação**: O usuário revisa o plano e aprova ou solicita ajustes.
+6. **Desenvolvimento**: O Developer gera os arquivos físicos usando o contrato `[FILE: caminho]`.
+7. **Rastreabilidade**: O sistema registra logs, timer, snapshots de hardware, arquivos criados e realiza commits Git locais automáticos.
+
+> [!NOTE]
+> O Planner não deve escrever código-fonte final e o Developer não deve replanejar a tarefa. Essa divisão de responsabilidades mantém o fluxo previsível e simplifica a auditoria.
+
+Veja abaixo a demonstração em vídeo do fluxo completo em ação:
 
 <video src="https://github.com/user-attachments/assets/e1a240bc-a71c-43a2-9f07-aa4e147836ec" controls width="100%"></video>
 
@@ -82,18 +97,6 @@ flowchart TD
 | `app_gui/main.py` | Interface Streamlit com chat, explorador, visualizador, logs e rodapé de hardware |
 | `app_cli/main.py` | Interface CLI por terminal usando o mesmo backend lógico |
 | `workspaces/` | Projetos gerados e evidências de execução |
-
-## Fluxo de Execução
-
-1. O usuário cria ou seleciona um workspace.
-2. Escolhe o modelo do Planner e do Developer entre os modelos disponíveis no Ollama.
-3. Envia um pedido de desenvolvimento.
-4. O Planner cria `implementation_plan.md`.
-5. O usuário revisa o plano e aprova ou pede ajustes.
-6. O Developer gera os arquivos físicos usando blocos estruturados `[FILE: caminho]`.
-7. O sistema registra arquivos, métricas, logs, timer, snapshots de hardware e commits locais.
-
-O Planner não deve escrever código-fonte final. O Developer não deve replanejar a tarefa. Essa divisão mantém o fluxo mais previsível e facilita auditoria.
 
 ## Modelos Offline
 
