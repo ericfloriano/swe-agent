@@ -316,6 +316,18 @@ O comportamento da aplicação pode ser customizado utilizando as seguintes vari
 | `SWE_AGENT_FAST_START` | Booleano | `true` | Habilita/desabilita o pré-aquecimento dos modelos padrão na inicialização do backend. |
 | `SWE_AGENT_FAST_START_MODELS` | String | `""` | Lista separada por vírgula de modelos adicionais para pré-aquecer na inicialização. |
 
+### 7. Fluxo de Teste Recomendado
+
+Para validar a instalação e medir o desempenho do seu ambiente local:
+
+1. Inicialize o serviço do Ollama com os modelos de sua preferência.
+2. Na interface gráfica do SWE Local Agent, selecione os modelos correspondentes para os papéis de **Planner** e **Developer**.
+3. Execute uma tarefa de teste utilizando o prompt de controle de atividades contido no guia de benchmark acima.
+4. Valide a entrega acompanhando os arquivos criados no diretório do workspace (`workspaces/<project_id>`).
+5. Analise as métricas de tempo total, TPS (tokens por segundo) e consumo de hardware no arquivo `.swe_local_agent/state.json` gerado para o projeto.
+
+A capacidade de quantificar a eficiência de cada etapa e modelo de forma empírica permite otimizar o fluxo e calibrar prompts para obter a melhor performance no hardware disponível.
+
 ## Validação Técnica
 
 ```bash
@@ -362,18 +374,6 @@ Melhorias naturais para os próximos ciclos:
 - exportação de relatório técnico por workspace;
 - suporte a mais templates de prompt por tipo de projeto;
 - empacotamento do ambiente para simplificar a distribuição.
-
-## Fluxo de Teste Recomendado
-
-Para validar a instalação e medir o desempenho do seu ambiente local:
-
-1. Inicialize o serviço do Ollama com os modelos de sua preferência.
-2. Na interface gráfica do SWE Local Agent, selecione os modelos correspondentes para os papéis de **Planner** e **Developer**.
-3. Execute uma tarefa de teste utilizando o prompt de controle de atividades contido no guia de benchmark acima.
-4. Valide a entrega acompanhando os arquivos criados no diretório do workspace (`workspaces/<project_id>`).
-5. Analise as métricas de tempo total, TPS (tokens por segundo) e consumo de hardware no arquivo `.swe_local_agent/state.json` gerado para o projeto.
-
-A capacidade de quantificar a eficiência de cada etapa e modelo de forma empírica permite otimizar o fluxo e calibrar prompts para obter a melhor performance no hardware disponível.
 
 ## Licença
 
