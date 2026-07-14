@@ -10,6 +10,40 @@
 
 O projeto foi desenvolvido para implementar e validar, sob restrições comuns de hardware local, um fluxo de engenharia inspirado nas ferramentas modernas de agentes autônomos de codificação (coding agents): planejamento, revisão, execução, auditoria e medição objetiva de performance. O diferencial central é a execução inteiramente offline e livre de dependências de APIs de inferência proprietárias.
 
+## Sumário
+
+- [Diferenciais da Plataforma](#diferenciais-da-plataforma)
+- [Demonstração e Fluxo de Execução](#demonstração-e-fluxo-de-execução)
+- [Motivação e Objetivos](#motivação-e-objetivos)
+- [Proposta e Evolução Técnica](#proposta-e-evolução-técnica)
+- [Arquitetura](#arquitetura)
+  - [Componentes](#componentes)
+  - [Orquestração de Agentes (LangGraph)](#orquestração-de-agentes-langgraph)
+- [Modelos Offline](#modelos-offline)
+  - [Modelos Já Testados e Validados](#modelos-já-testados-e-validados)
+  - [Combinação Recomendada Hoje](#combinação-recomendada-hoje)
+- [Suporte a Hardware e Aceleração (Vulkan/iGPU)](#suporte-a-hardware-e-aceleração-vulkanigpu)
+  - [Configuração do Ollama para iGPU/Vulkan (Linux)](#configuração-do-ollama-para-igpuvulkan-linux)
+  - [Validação](#validação)
+  - [Monitoramento de Recursos e Segurança Térmica](#monitoramento-de-recursos-e-segurança-térmica)
+- [Gerenciamento de Memória e Recursos](#gerenciamento-de-memória-e-recursos)
+- [Benchmarks Recentes](#benchmarks-recentes)
+- [Prompt de Benchmark Recomendado](#prompt-de-benchmark-recomendado)
+- [Estrutura do `state.json`](#estrutura-do-statejson)
+- [Guia de Instalação e Execução](#guia-de-instalação-e-execução)
+  - [1. Instalar dependências](#1-instalar-dependências)
+  - [2. Validar Ollama](#2-validar-ollama)
+  - [3. Subir backend](#3-subir-backend)
+  - [4. Subir frontend](#4-subir-frontend)
+  - [5. Rodar via CLI](#5-rodar-via-cli)
+  - [6. Variáveis de Ambiente](#6-variáveis-de-ambiente)
+  - [7. Fluxo de Teste Recomendado](#7-fluxo-de-teste-recomendado)
+- [Validação Técnica](#validação-técnica)
+- [Segurança](#segurança)
+- [Princípios de Projeto e Engenharia](#princípios-de-projeto-e-engenharia)
+- [Roadmap](#roadmap)
+- [Licença](#licença)
+
 ## Diferenciais da Plataforma
 
 - **100% local e offline para inferência**: Planner e Developer usam modelos registrados no Ollama.
@@ -229,7 +263,8 @@ Os testes abaixo usam workspaces reais em `workspaces/app_task_*`, com estado pe
 | `app_task_8` | Sweet spot de escopo | `qwen2.5-coder-1.5b-qa` | `qwen2.5-coder-7b-local` | 180,59s | 13,93 | 3,53 | `quality_checks: passed` |
 | `app_task_11` | Otimização de GUI e Latência (Vídeo Demo) | `qwen2.5-coder-1.5b-qa` | `qwen2.5-coder-7b-local` | 277,97s | 12,00 | 2,85 | `quality_checks: passed` |
 
-Leitura importante: o teste mais veloz não é necessariamente o melhor em qualidade. O teste `app_task_4` obteve tempo reduzido, mas desviou o domínio da aplicação. O ponto ideal (sweet spot) foi atingido quando a performance e o rigor do escopo do prompt foram equilibrados.
+> [!NOTE]
+> O teste mais veloz não é necessariamente o melhor em qualidade. O teste `app_task_4` obteve tempo reduzido, mas desviou o domínio da aplicação. O ponto ideal (sweet spot) foi atingido quando a performance e o rigor do escopo do prompt foram equilibrados.
 
 ## Prompt de Benchmark Recomendado
 
