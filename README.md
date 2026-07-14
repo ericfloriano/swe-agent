@@ -25,7 +25,9 @@ O projeto foi desenhado para implementar e validar, em hardware comum, um fluxo 
 
 ## Demonstração
 
-<video src="assets/Test-OfflineModel_Rev-8.0-2026-07-13_18.28.51.mp4" controls width="100%"></video>
+[clique aqui para assistir ao vídeo de demonstração](assets/Test-OfflineModel_Rev-8.0-2026-07-13_18.28.51.mp4)
+
+<video src="https://github.com/ericfloriano/swe-agent/raw/main/assets/Test-OfflineModel_Rev-8.0-2026-07-13_18.28.51.mp4" controls width="100%"></video>
 
 ## Motivação e Objetivos
 
