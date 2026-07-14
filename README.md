@@ -23,6 +23,10 @@ O projeto foi desenhado para implementar e validar, em hardware comum, um fluxo 
 - **Segurança de escrita**: sandbox de caminhos impede escrita fora do workspace do projeto.
 - **Portabilidade**: backend FastAPI, frontend Streamlit e CLI Python.
 
+## Demonstração
+
+<video src="assets/Test-OfflineModel_Rev-8.0-2026-07-13_18.28.51.mp4" controls width="100%"></video>
+
 ## Por Que Este Projeto Importa
 
 Rodar agentes de desenvolvimento localmente é difícil por três motivos: modelos consomem memória, inferência pode ser lenta e modelos locais pequenos tendem a encurtar ou desviar tarefas quando o prompt não é bem controlado.
