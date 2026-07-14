@@ -10,7 +10,7 @@
 
 O projeto foi desenhado para implementar e validar, em hardware comum, um fluxo de engenharia parecido com ferramentas modernas de coding agents: planejamento, revisão, execução, auditoria e comparação objetiva de desempenho. A diferença central é que tudo acontece na máquina local, sem depender de API externa para inferência.
 
-## Destaques
+## Diferenciais da Plataforma
 
 - **100% local e offline para inferência**: Planner e Developer usam modelos registrados no Ollama.
 - **Modelos intercambiáveis**: a GUI lista os modelos disponíveis e permite testar outras combinações.
@@ -223,7 +223,7 @@ Mesmo assim, em notebook é prudente:
 - comparar estabilidade antes e depois de qualquer ajuste de driver;
 - manter rollback simples do override do systemd.
 
-## Descarregar Modelos da Memória
+## Gerenciamento de Memória e Recursos
 
 Para ver modelos carregados:
 
@@ -310,7 +310,7 @@ Campos principais:
 
 O `state.json` é uma das partes mais importantes do projeto porque permite realizar análises comparativas de forma sistemática e objetiva.
 
-## Como Rodar
+## Guia de Instalação e Execução
 
 ### 1. Instalar dependências
 
@@ -391,7 +391,7 @@ O projeto trata o filesystem como superfície crítica:
 - cada workspace tem Git local para auditoria;
 - logs e estado ficam no projeto, não espalhados pelo sistema.
 
-## Filosofia de Design
+## Princípios de Projeto e Engenharia
 
 O objetivo não é ter muitos agentes. O objetivo é ter o número certo de agentes para o hardware disponível.
 
