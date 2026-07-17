@@ -51,7 +51,7 @@ O projeto foi desenvolvido para implementar e validar, sob restrições comuns d
 - **Fluxo estruturado de dois estágios**: `Planner Agent -> aprovação humana -> Developer Agent`.
 - **Workspaces isolados**: cada projeto gerado fica em `workspaces/<project_id>`.
 - **Estado auditável**: cada execução persiste `state.json`, plano, arquivos criados, métricas e snapshots de hardware.
-- **Aceleração por GPU integrada AMD via Vulkan**: validada no Lenovo IdeaPad S145-15API com Radeon Vega 8 integrada.
+- **Viabilidade sob restrições de hardware (Otimização Local)**: Desenvolvido e otimizado sob o desafio de rodar em um laptop de uso pessoal com especificações de entrada/moderadas (Laptop **Lenovo IdeaPad S145-15API**, processador **AMD Ryzen 5 3500U**, **17 GB de RAM disponível**, placa de vídeo integrada **Radeon Vega 8** com aceleração via **Vulkan** no Ollama e **SSD M.2 2280 NVMe PCIe 4.0 x4**). Isso comprova a eficácia da plataforma em viabilizar o uso de agentes autônomos offline, sem depender de GPUs dedicadas caras ou APIs proprietárias em nuvem.
 - **Observabilidade real**: CPU, RAM, temperatura, GPU, memória compartilhada e status do Ollama aparecem no app e no registro da execução.
 - **Evidência de qualidade sem travar o fluxo**: o backend registra `quality_checks` no `state.json`, mas não bloqueia o Planner nem polui a UI.
 - **Segurança de escrita**: sandbox de caminhos impede escrita fora do workspace do projeto.
